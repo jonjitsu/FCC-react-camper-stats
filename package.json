@@ -1,0 +1,37 @@
+{
+  "name": "camper-leaderboard",
+  "version": "0.1.0",
+  "description": "",
+  "main": "build/heroku/serve.js",
+  "scripts": {
+    "start": "node build/heroku/serve.js",
+    "build:heroku": "rm -rf build/heroku && webpack --config webpack.heroku.js && babel server -d build/heroku",
+    "build:dev": "rm -rf build/dev && webpack",
+    "dev": "webpack-dev-server",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.13.4",
+    "react": "^0.14.7",
+    "react-dom": "^0.14.7"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.5.1",
+    "babel-core": "^6.5.2",
+    "babel-loader": "^6.2.2",
+    "babel-preset-es2015": "^6.5.0",
+    "babel-preset-react": "^6.5.0",
+    "chai": "^3.5.0",
+    "file-loader": "^0.8.5",
+    "html-webpack-plugin": "^2.8.1",
+    "jade": "^1.11.0",
+    "jade-html-loader": "0.0.3",
+    "jade-loader": "^0.8.0",
+    "mocha": "^2.4.5",
+    "raw-loader": "^0.5.1",
+    "webpack": "^1.12.13",
+    "webpack-dev-server": "^1.14.1"
+  }
+}
