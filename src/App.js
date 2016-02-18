@@ -1,13 +1,14 @@
 import React from 'react';
-
+import LeaderBoard from './LeaderBoard.js';
 
 
 class App extends React.Component {
   render() {
     return (
-            <div className="row">
-            Hello App!
-            </div>
+        <div className="App">
+            <div className="row"><h2 className="fcc-board-header">LeaderBoard</h2></div>
+            <LeaderBoard />
+        </div>
         );
   }
 }
