@@ -1,0 +1,20 @@
+@import 'common.scss';
+
+body {
+    font: 100% $font-stack;
+    color: $primary-color;
+    background: #ddd;
+}
+
+.logo {
+    padding: 5px;
+    background: $fcc-color;
+    color: white;
+    font-size: 25px; 
+    font-family: monospace; 
+    font-weight: normal;
+}
+
+.App {
+    margin:30px auto; 
+}

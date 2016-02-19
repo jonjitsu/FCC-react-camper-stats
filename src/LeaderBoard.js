@@ -1,4 +1,5 @@
 import React from 'react';
+import './LeaderBoard.scss';
 
 const TOP30=1,
       ALLTIME=2,
@@ -11,7 +12,9 @@ const TOP30=1,
           };
       },
       sortByRecent = sortByField('recent'),
-      sortByAlltime = sortByField('alltime')
+      sortByAlltime = sortByField('alltime'),
+      isNumber = n => { return typeof n === 'number'; },
+      isEven = n => { return n%2===0; }
 ;
 
 class LeaderBoard extends React.Component {
@@ -56,8 +59,14 @@ class LeaderBoard extends React.Component {
  */
 const leaderBoardRowHelper = (props) => {
     let classes = ['row'];
+
+    if( isNumber(props.count) ) {
+        classes.push(isEven(props.count) ? 'even' : 'odd');
+    }
+
     if ( typeof props.className==='string' ) classes = props.className.split(/\s+/).concat(classes);
     else classes.push('fcc-table-row');
+
     return (
             <div className={classes.join(' ')}>
             <div className="column small-1">{props.count}</div>

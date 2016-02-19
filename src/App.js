@@ -1,6 +1,6 @@
 import React from 'react';
 import LeaderBoard from './LeaderBoard.js';
-
+import './app.scss';
 
 class App extends React.Component {
   render() {
