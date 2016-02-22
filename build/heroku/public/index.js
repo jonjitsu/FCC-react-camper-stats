@@ -68,7 +68,7 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	_reactDom2.default.render(_react2.default.createElement(_App2.default, null), document.getElementById('app'));
+	_reactDom2.default.render(_react2.default.createElement(_App2.default, { fccUrl: 'https://fcctop100.herokuapp.com' }), document.getElementById('app'));
 
 /***/ },
 /* 2 */
@@ -19725,7 +19725,7 @@
 	                        'LeaderBoard'
 	                    )
 	                ),
-	                _react2.default.createElement(_LeaderBoard2.default, null)
+	                _react2.default.createElement(_LeaderBoard2.default, { fccUrl: 'http://fcctop100.herokuapp.com' })
 	            );
 	        }
 	    }]);
@@ -19798,7 +19798,7 @@
 	        value: function loadFromServer() {
 	            var _this2 = this;
 
-	            __webpack_require__(166)().all().then(function (data) {
+	            __webpack_require__(166)(this.props.fccUrl).all().then(function (data) {
 	                _this2.data = data;
 	                _this2.updateBoard();
 	            });
@@ -19821,14 +19821,17 @@
 	        _this.state = { leaders: [] };
 	        _this.sortBy = TOP30;
 	        _this.sortDirection = DOWN;
-	        _this.loadFromServer();
 	        return _this;
 	    }
 
 	    _createClass(LeaderBoard, [{
+	        key: 'componentDidMount',
+	        value: function componentDidMount() {
+	            this.loadFromServer();
+	        }
+	    }, {
 	        key: 'resort',
 	        value: function resort(sortBy) {
-	            console.log('resort!');
 	            if (this.sortBy === sortBy) {
 	                this.sortDirection ^= 3;
 	            } else {
