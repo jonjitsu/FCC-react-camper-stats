@@ -28,6 +28,8 @@ module.exports = {
                     presets: ['es2015', 'react']
                 }
             },
+            { test: /\.scss$/, exclude: /node_modules/, loader:'style!css!sass' },
+            { test: /\.css$/, loader: "style!css" }
             // { test: /\.jade$/, loader:'jade' }
         ]
     }
