@@ -28,7 +28,7 @@ const TOP30=1, ALLTIME=2,
 
 class LeaderBoard extends React.Component {
     loadFromServer() {
-        require('./leader-board-service.js')()
+        require('./leader-board-service.js')(this.props.fccUrl)
             .all()
             .then((data)=>{
                 this.data = data;
@@ -46,10 +46,12 @@ class LeaderBoard extends React.Component {
         this.state = {leaders:[]};
         this.sortBy = TOP30;
         this.sortDirection = DOWN;
+    }
+
+    componentDidMount() {
         this.loadFromServer();
     }
     resort(sortBy) {
-        console.log('resort!');
         if(this.sortBy===sortBy) {
             this.sortDirection ^= 3;
         } else {

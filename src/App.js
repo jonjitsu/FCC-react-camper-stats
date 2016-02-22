@@ -7,7 +7,7 @@ class App extends React.Component {
     return (
         <div className="App">
             <div className="row"><h2 className="fcc-board-header">LeaderBoard</h2></div>
-            <LeaderBoard />
+            <LeaderBoard fccUrl="http://fcctop100.herokuapp.com" />
         </div>
         );
   }
