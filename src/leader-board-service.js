@@ -1,3 +1,5 @@
+import Promise from 'bluebird';
+
 module.exports = (baseUrl, ajax) => {
     if(baseUrl===undefined) baseUrl = 'http://fcctop100.herokuapp.com';
     if(ajax===undefined) ajax = require('./ajax.js');
