@@ -19725,7 +19725,7 @@
 	                        'LeaderBoard'
 	                    )
 	                ),
-	                _react2.default.createElement(_LeaderBoard2.default, { fccUrl: 'http://fcctop100.herokuapp.com' })
+	                _react2.default.createElement(_LeaderBoard2.default, { fccUrl: this.props.fccUrl })
 	            );
 	        }
 	    }]);
