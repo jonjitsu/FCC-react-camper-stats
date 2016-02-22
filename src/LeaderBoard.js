@@ -1,14 +1,23 @@
 import React from 'react';
 import './LeaderBoard.scss';
 
-const TOP30=1,
-      ALLTIME=2,
+const TOP30=1, ALLTIME=2,
+      UP=1, DOWN=2,
 
       sortByField = field => {
-          return (u1, u2) => {
-              if( u1[field] > u2[field] ) return -1;
-              if( u1[field] < u2[field] ) return 1;
-              return 0;
+          return direction => {
+              let ascSort = (u1, u2) => {
+                  if( u1[field] > u2[field] ) return -1;
+                  if( u1[field] < u2[field] ) return 1;
+                  return 0;
+              },
+                  descSort = (u1, u2) => {
+                      if( u1[field] < u2[field] ) return -1;
+                      if( u1[field] > u2[field] ) return 1;
+                      return 0;
+                  };
+
+              return direction===UP ? descSort : ascSort;
           };
       },
       sortByRecent = sortByField('recent'),
@@ -28,7 +37,7 @@ class LeaderBoard extends React.Component {
     }
     updateBoard() {
         let sorter = this.sortBy===TOP30 ? sortByRecent : sortByAlltime,
-            newState = {leaders: this.data.sort(sorter).slice(0,100)};
+            newState = {leaders: this.data.sort(sorter(this.sortDirection)).slice(0,100)};
 
         this.setState(newState);
     }
@@ -36,7 +45,17 @@ class LeaderBoard extends React.Component {
         super();
         this.state = {leaders:[]};
         this.sortBy = TOP30;
+        this.sortDirection = DOWN;
         this.loadFromServer();
+    }
+    resort(sortBy) {
+        console.log('resort!');
+        if(this.sortBy===sortBy) {
+            this.sortDirection ^= 3;
+        } else {
+            this.sortBy = sortBy;
+        }
+        this.updateBoard();
     }
     render() {
         const leaders = this.state.leaders.map((leader,i)=>{
@@ -44,7 +63,8 @@ class LeaderBoard extends React.Component {
         });
         return (
             <div>
-                <LeaderBoardHeader />
+                <LeaderBoardHeader onSort={this.resort.bind(this)}
+            sortBy={this.sortBy} sortDirection={this.sortDirection} />
                 {leaders}
             </div>
         );
@@ -82,8 +102,20 @@ const leaderBoardRowHelper = (props) => {
 
  * @returns {} 
  */
-const LeaderBoardHeader = () => {
-    return leaderBoardRowHelper({className:'fcc-table-heading', count:'#', name:'Camper Name', recent:'30 Days', alltime:'All Time'});
+const LeaderBoardHeader = (props) => {
+    // return leaderBoardRowHelper({className:'fcc-table-heading', count:'#', name:'Camper Name', recent:'30 Days', alltime:'All Time'});
+    let directionIcon = props.sortDirection===UP ? 'fa fa-chevron-up' : 'fa fa-chevron-down',
+        top30Icon = props.sortBy===TOP30 ? directionIcon : '',
+        alltimeIcon = props.sortBy===ALLTIME ? directionIcon : '';
+
+    return (
+            <div className='row odd fcc-clickable fcc-table-heading'>
+            <div className="column small-1">#</div>
+            <div className="column small-5">Camper Name</div>
+            <div className="column small-3 fcc-clickme" onClick={props.onSort.bind(props, TOP30)}>30 Days <i className={top30Icon}></i></div>
+            <div className="column small-3 fcc-clickme" onClick={props.onSort.bind(props, ALLTIME)}>All Time <i className={alltimeIcon}></i></div>
+            </div>
+    );
 };
 
 
