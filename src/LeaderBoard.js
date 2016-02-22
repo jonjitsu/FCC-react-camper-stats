@@ -74,38 +74,11 @@ class LeaderBoard extends React.Component {
 }
 
 /**
- * leaderBoardRowHelper: Just keepin it DRY.
- *
- * @param {} props
- * @returns {} 
- */
-const leaderBoardRowHelper = (props) => {
-    let classes = ['row'];
-
-    if( isNumber(props.count) ) {
-        classes.push(isEven(props.count) ? 'even' : 'odd');
-    }
-
-    if ( typeof props.className==='string' ) classes = props.className.split(/\s+/).concat(classes);
-    else classes.push('fcc-table-row');
-
-    return (
-            <div className={classes.join(' ')}>
-            <div className="column small-1">{props.count}</div>
-            <div className="column small-5">{props.name}</div>
-            <div className="column small-3">{props.recent}</div>
-            <div className="column small-3">{props.alltime}</div>
-            </div>
-    );
-}
-
-/**
  * LeaderBoardHeader element
 
  * @returns {} 
  */
 const LeaderBoardHeader = (props) => {
-    // return leaderBoardRowHelper({className:'fcc-table-heading', count:'#', name:'Camper Name', recent:'30 Days', alltime:'All Time'});
     let directionIcon = props.sortDirection===UP ? 'fa fa-chevron-up' : 'fa fa-chevron-down',
         top30Icon = props.sortBy===TOP30 ? directionIcon : '',
         alltimeIcon = props.sortBy===ALLTIME ? directionIcon : '';
@@ -129,7 +102,23 @@ const LeaderBoardHeader = (props) => {
  * @returns {} ReactDOM
  */
 const LeaderBoardRow = (props) => {
-    return leaderBoardRowHelper(props);
+    let classes = ['row'];
+
+    if( isNumber(props.count) ) {
+        classes.push(isEven(props.count) ? 'even' : 'odd');
+    }
+
+    if ( typeof props.className==='string' ) classes = props.className.split(/\s+/).concat(classes);
+    else classes.push('fcc-table-row');
+
+    return (
+            <div className={classes.join(' ')}>
+            <div className="column small-1">{props.count}</div>
+            <div className="column small-5">{props.name}</div>
+            <div className="column small-3">{props.recent}</div>
+            <div className="column small-3">{props.alltime}</div>
+            </div>
+    );
 };
 
 export default LeaderBoard;
